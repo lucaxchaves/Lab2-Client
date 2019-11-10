@@ -1,3 +1,31 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="content1" side="start">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+          <ion-item routerLink="/home" routerDirection="foward">
+            <ion-icon name="home" slot="start"></ion-icon>
+            Inicio
+          </ion-item>
+          <ion-item routerLink="/carros" routerDirection="foward">
+            <ion-icon name="car" slot="start"></ion-icon>
+            Carros
+          </ion-item>
+          <ion-item routerLink="/usuarios" routerDirection="foward">
+            <ion-icon name="person" slot="start"></ion-icon>
+            Pessoas
+          </ion-item>
+          <ion-item-divider></ion-item-divider>
+          <ion-item routerLink="/logout" routerDirection="foward">
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            Sair
+          </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content1" main></ion-router-outlet>
 </ion-app>

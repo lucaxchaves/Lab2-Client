@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carros</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando...">
+    
+    </ion-refresher-content>
+    
+  </ion-refresher>
+  <div class="ion-padding">
+    <ion-list *ngFor="let carro of carros">
+      <app-carro [carro]="carro"></app-carro>
+    </ion-list>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="add" (click)="presentForm()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
