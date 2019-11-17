@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { Usuario } from './usuario';
 import { FormComponent } from './form/form.component';
 
@@ -11,7 +11,7 @@ import { FormComponent } from './form/form.component';
 })
 export class UsuariosPage implements OnInit {
   usuarios: Usuario[];
-  constructor(private usersService : UsuariosService, public modalController :ModalController) { }
+  constructor(private usersService : UsuariosService,public alertController:AlertController, public modalController :ModalController) { }
 
   ngOnInit() {
     this.loadUsersList();
@@ -29,7 +29,39 @@ export class UsuariosPage implements OnInit {
       event.target.complete();
     }, 200);
   }
+  async remove(usuario:Usuario){
+    await this.confirmRemove(usuario);
+  }
 
+
+  async confirmRemove(usuario:Usuario){
+    const alert = await this.alertController.create(
+      {
+        header: "Confirma exclusão?",
+        buttons: [
+          {
+            text: "Cancelar",
+            role: "cancel",
+            cssClass: "secondary"
+          },
+          {
+            text: "Sim",
+            handler: () =>{
+              this.usersService.delete(usuario).subscribe(
+              res=>this.loadUsersList());
+              
+            }
+          }
+        ]
+      }
+    );
+    await alert.present();
+
+  }
+
+  async edit(usuario:Usuario){
+    await this.updateForm(usuario);
+  }
   async presentForm(){
     const modal = await this.modalController.create({
       component: FormComponent

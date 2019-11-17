@@ -20,7 +20,7 @@
   </ion-refresher>
   <div class="ion-padding">
     <ion-list *ngFor="let carro of carros">
-      <app-carro [carro]="carro"></app-carro>
+      <app-carro [carro]="carro" (edit)="edit($event)" (remove)="remove($event)"></app-carro>
     </ion-list>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

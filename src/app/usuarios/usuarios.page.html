@@ -17,7 +17,7 @@
   </ion-refresher>
   <div class="ion-padding">
     <ion-list *ngFor="let usu of usuarios">
-      <app-usuario [usuario]="usu"></app-usuario>
+      <app-usuario [usuario]="usu" (edit)="edit($event)" (remove)="remove($event)" ></app-usuario>
     </ion-list>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

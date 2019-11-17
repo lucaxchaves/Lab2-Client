@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarrosService } from '../services/carros.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { FormComponent } from './form/form.component';
 
 
@@ -12,7 +12,7 @@ import { FormComponent } from './form/form.component';
 export class CarrosPage implements OnInit {
   carros : Carro[];
   
-  constructor(private carrosService: CarrosService, public modalController : ModalController) { }
+  constructor(private carrosService: CarrosService, public alertController : AlertController, public modalController : ModalController) { }
 
   ngOnInit() {
     this.loadCarList();
@@ -31,6 +31,41 @@ export class CarrosPage implements OnInit {
     }, 200);
   }
 
+  async remove(carro:Carro){
+    await this.confirmRemove(carro);
+  }
+
+
+  async confirmRemove(carro:Carro){
+    const alert = await this.alertController.create(
+      {
+        header: "Confirma exclusão?",
+        buttons: [
+          {
+            text: "Cancelar",
+            role: "cancel",
+            cssClass: "secondary"
+          },
+          {
+            text: "Sim",
+            handler: () =>{
+              this.carrosService.delete(carro).subscribe(
+              res=>this.loadCarList());
+              
+            }
+          }
+        ]
+      }
+    );
+    await alert.present();
+
+  }
+
+
+  async edit(carro:Carro){
+    await this.updateForm(carro);
+
+  }
   async presentForm(){
     const modal = await this.modalController.create({
       component: FormComponent,

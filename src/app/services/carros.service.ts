@@ -25,7 +25,7 @@ export class CarrosService {
         return res;
       }),
       catchError(e =>{
-        this.showAlert('Não foi possível salvar', e.error.error);
+        this.showAlert(e.error.error,'Não foi possível salvar');
         throw e;
       })
     )
@@ -34,14 +34,12 @@ export class CarrosService {
 
   private insert(carro: Carro){
     return this.httpClient.post(`${this.url}/cars`, carro).pipe(
-      tap(res=>{
-        console.log(res);
-        
+      tap(res=>{        
         this.showAlert('Cadastro realizado com sucesso','Sucesso!');
         return res;
       }),
       catchError(e =>{
-        this.showAlert('Não foi possível salvar', e.error.error);
+        this.showAlert(e.error.error, 'Não foi possível salvar');
         throw e;
       })
     )
@@ -53,6 +51,18 @@ export class CarrosService {
     }else{
       return this.insert(carro);
     }
+  }
+
+  delete(carro: Carro){
+    return this.httpClient.delete(`${this.url}/cars/${carro.id}`).pipe(
+      tap(res =>{
+        this.showAlert('Exclusão realizada com sucesso','Sucesso!')
+        return res;
+      }),catchError(e=>{
+        this.showAlert(e.error.error, 'Não foi possível excluir')
+        throw e;
+      })
+    );
   }
 
   private showAlert(msg:string, header:string){ 

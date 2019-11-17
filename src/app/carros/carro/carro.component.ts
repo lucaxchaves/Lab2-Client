@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { EventEmitter } from 'protractor';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-carro',
@@ -8,13 +7,19 @@ import { EventEmitter } from 'protractor';
 })
 export class CarroComponent implements OnInit {
   @Input() carro: Carro;
-  @Output() edit = new EventEmitter();
-  @Output() remove = new EventEmitter();
+  @Output() edit :EventEmitter<Carro> = new EventEmitter();
+  @Output() remove:EventEmitter<Carro> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
+  doRemove(){ 
+    this.remove.emit(this.carro);
+  }
+  doEdit(){
+    this.edit.emit(this.carro);
+  }
 
 
 
