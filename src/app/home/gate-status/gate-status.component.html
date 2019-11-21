@@ -1,3 +1,18 @@
-<p>
-  gate-status works!
-</p>
+<div class="ion-padding clickable" (click)="lockClick($event)"> 
+  <div *ngIf="gate.status == 1;else elseBlock">
+    <ion-row class="ion-justify-content-center">
+      <ion-icon class="iconClass fadeIn" color="success" name="unlock"></ion-icon>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <h3>Portão Aberto</h3>
+    </ion-row>
+  </div>
+  <ng-template #elseBlock>
+    <ion-row class="ion-justify-content-center">
+      <ion-icon class="iconClass fadeIn" color="danger" name="lock"></ion-icon>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <h3>Portão Fechado</h3>
+    </ion-row>
+  </ng-template>
+</div>

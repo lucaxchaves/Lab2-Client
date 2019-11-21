@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 
-import { NotificationService } from './notification.service';
+import {Push, PushOptions, PushObject} from '@ionic-native/push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private authService: AuthService,
-    private notificationService : NotificationService
-  ) {
+    private push : Push
+    ) {
     this.initializeApp();
   }
 
@@ -29,8 +29,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.notificationService.init();
-      
+      this.initializeFirebase();
       this.authService.authenticationState.subscribe(state=>{
         if(state){
           this.router.navigateByUrl('/home');
@@ -40,9 +39,21 @@ export class AppComponent {
         }
       });
     });
-
   }
-
+  private initializeFirebase() {
+    const options: PushOptions = {
+      android: {
+        senderID: 'Seu codigo aqui'
+      }
+    }
+    
+    const pushObject: PushObject = this.push.init(options)
+  
+    pushObject.on('registration').subscribe(res => console.log(` ${res.registrationId}`))
+  
+    pushObject.on('notification').subscribe(res => console.log(`Já chegou o disco voador: ${res.message}`))
+  }
+  
   logout(){
     this.authService.logout();
   }

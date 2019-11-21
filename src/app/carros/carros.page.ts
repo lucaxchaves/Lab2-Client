@@ -41,11 +41,7 @@ export class CarrosPage implements OnInit {
       {
         header: "Confirma exclusão?",
         buttons: [
-          {
-            text: "Cancelar",
-            role: "cancel",
-            cssClass: "secondary"
-          },
+          
           {
             text: "Sim",
             handler: () =>{
@@ -53,6 +49,11 @@ export class CarrosPage implements OnInit {
               res=>this.loadCarList());
               
             }
+          },
+          {
+            text: "Não",
+            role: "cancel",
+            cssClass: "secondary"
           }
         ]
       }

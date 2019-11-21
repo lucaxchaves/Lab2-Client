@@ -11,5 +11,17 @@
 
   
 <ion-content>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando...">
+        
+    </ion-refresher-content> 
+  </ion-refresher>
+
+  <div class="ion-padding" *ngIf="gate != undefined">
+    <app-gate-status (click)="gateClick()" [gate]="gate"></app-gate-status>
+  </div>
 </ion-content>

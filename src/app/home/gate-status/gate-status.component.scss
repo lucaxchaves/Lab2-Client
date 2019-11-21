@@ -1,0 +1,35 @@
+.iconClass {
+    font-size: 128px;
+}
+
+.clickable{
+  cursor: pointer;
+  &:active{
+    opacity: 0.8;
+    transform: translateY(4px);
+  }
+}
+
+
+
+@keyframes fadeIn {
+    0% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    75% {
+      opacity: 0.75;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}

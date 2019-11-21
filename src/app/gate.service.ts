@@ -13,11 +13,16 @@ export class GateService {
   load(){
     return this.httpClient.get(`${this.url}/gate`).pipe(
       tap(res=>{
-        
-       return res;
+       return res as Gate;
       }), catchError(e=>{
         throw e;
       })
     )
   }
+
+  changeStatus(isOpen :boolean){
+    let route : string = isOpen ? "close" : "open";
+    return this.httpClient.get(`${this.url}/gate/${route}`);
+  }
+
 }
