@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 
+import { NotificationService } from './notification.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,7 +19,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService : NotificationService
   ) {
     this.initializeApp();
   }
@@ -26,7 +29,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.notificationService.init();
+      
       this.authService.authenticationState.subscribe(state=>{
         if(state){
           this.router.navigateByUrl('/home');
@@ -36,5 +40,10 @@ export class AppComponent {
         }
       });
     });
+
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

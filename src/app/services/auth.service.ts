@@ -59,14 +59,14 @@ export class AuthService {
 
 
   login(credentials) {
+    console.log(credentials);
     return this.httpClient.post(`${this.url}/auth/login`, credentials)
       .pipe(
         tap(res => {
           this.authenticated(res);
         }),
         catchError(e => {
-          console.log(e.error.error);
-          this.showAlert(e.error.error, 'Falha ao realizar login');
+          this.showAlert(e.error, 'Falha ao realizar login');
           throw e;
         })
       );

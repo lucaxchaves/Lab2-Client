@@ -18,11 +18,6 @@ export class FormComponent implements OnInit {
   plate = new FormControl("", Validators.pattern("\\w{3}\\-\\d{4}"));
   year =  new FormControl("", Validators.required);
   constructor(private service : CarrosService, public modalController : ModalController, private formBuilder : FormBuilder) {
-    if(this.carro==undefined){
-      this.new();
-    }else{
-      this.edit(this.carro);
-    }
     this.myForm = this.formBuilder.group({
       "name": this.name,
       "model": this.model,
@@ -30,12 +25,19 @@ export class FormComponent implements OnInit {
       "year": this.year
     }); 
     
+    if(this.carro==undefined){
+      this.new();
+    }else{
+      this.edit(this.carro);
+    }
+
+    this.myForm.markAllAsTouched();
   }
 
   new(){
     this.carro =  {
       id:0,
-      name:"",
+        name:"",
       model: "",
       plate: "",
       year:0

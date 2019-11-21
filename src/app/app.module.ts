@@ -12,13 +12,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+
+import {Push} from '@ionic-native/push/ngx';
+import {Device} from '@ionic-native/device/ngx';
+
+
  
-export function jwtOptionsFactory(storage) {
+export function jwtOptionsFactory(Storage: any) {
   return {
     tokenGetter: () => {
-      return storage.get('access_token');
+      return Storage.get('access_token');
     },
-    whitelistedDomains: ['localhost:3000']
+    whitelistedDomains: ['localhost:3000','192.168.0.16:3000']
   }
 }
  
@@ -38,6 +43,8 @@ export function jwtOptionsFactory(storage) {
   providers: [
     StatusBar,
     SplashScreen,
+    Device,
+    Push, 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
