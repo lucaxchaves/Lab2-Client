@@ -18,6 +18,7 @@ export class CarrosService {
 
 
   private update(carro: Carro){
+    console.log(carro);
     return this.httpClient.patch(`${this.url}/cars/${carro.id}`, carro).pipe(
       tap(res=>{
         
@@ -46,6 +47,7 @@ export class CarrosService {
   }
 
   save(carro: Carro){
+    carro.plate = carro.plate.toUpperCase();
     if(carro.id>0){
       return this.update(carro);
     }else{

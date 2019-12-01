@@ -23,7 +23,7 @@ export function jwtOptionsFactory(Storage: any) {
     tokenGetter: () => {
       return Storage.get('access_token');
     },
-    whitelistedDomains: ['localhost:3000','192.168.0.16:3000']
+    whitelistedDomains: ['localhost:3000','192.168.43.224:3000', '192.168.0.16:3000']
   }
 }
  

@@ -1,15 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Meu Portão
-    </ion-title>
+    <ion-title>Entradas e Saídas</ion-title>
     <ion-buttons slot="start">
         <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-  
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -17,11 +14,13 @@
       pullingText="Puxe para atualizar"
       refreshingSpinner="circles"
       refreshingText="Atualizando...">
-        
-    </ion-refresher-content> 
+    
+    </ion-refresher-content>
+    
   </ion-refresher>
-
-  <div class="ion-padding" *ngIf="gate != undefined">
-    <app-gate-status (click)="gateClick()" [gate]="gate"></app-gate-status>
+  <div class="ion-padding">
+    <ion-list *ngFor="let registro of registros">
+      <app-registro2 [registro]="registro" ></app-registro2>
+    </ion-list>
   </div>
 </ion-content>

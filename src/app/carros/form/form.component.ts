@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NavParams, ModalController} from '@ionic/angular';
 import { CarrosService } from 'src/app/services/carros.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
 
 @Component({
@@ -11,49 +11,48 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class FormComponent implements OnInit {
   @Input() carro: Carro;
-
   myForm: FormGroup;
-  name = new FormControl("", Validators.required);
-  model = new FormControl("", Validators.required);
-  plate = new FormControl("", Validators.pattern("\\w{3}\\-\\d{4}"));
-  year =  new FormControl("", Validators.required);
+  name:FormControl = new FormControl('', Validators.required);
+  model:FormControl = new FormControl('', Validators.required);
+  plate:FormControl = new FormControl('', Validators.pattern("\\w{3}-\\d{4}"));
+  year:FormControl = new FormControl('', Validators.required);
+  
   constructor(private service : CarrosService, public modalController : ModalController, private formBuilder : FormBuilder) {
-    this.myForm = this.formBuilder.group({
-      "name": this.name,
-      "model": this.model,
-      "plate": this.plate,
-      "year": this.year
-    }); 
-    
-    if(this.carro==undefined){
-      this.new();
-    }else{
-      this.edit(this.carro);
+    if(this.carro == undefined){
+      this.create();
     }
-
-    this.myForm.markAllAsTouched();
+    this.myForm = this.formBuilder.group({
+      name: this.name, 
+      model: this.model,
+      plate: this.plate,
+      year: this.year
+    }); 
   }
 
-  new(){
+  ngAfterViewInit(){
+    this.edit();
+  }
+
+  private edit(){
+    this.myForm.patchValue({
+      name: this.carro.name,
+      model: this.carro.model,
+      plate: this.carro.plate,
+      year: this.carro.year
+    });
+    this.myForm.updateValueAndValidity()
+  }
+  private create(){
     this.carro =  {
       id:0,
-        name:"",
+      name:"",
       model: "",
       plate: "",
       year:0
     };
-    
   }
 
-  edit(carro: Carro){
-    this.carro = carro;
-    this.name.setValue(carro.name);
-    this.model.setValue(carro.model);
-    this.plate.setValue(carro.plate);
-    this.year.setValue(carro.plate);
-    
-  }
-
+  
   ngOnInit() {}
 
   onSubmit(){
